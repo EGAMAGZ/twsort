@@ -1,8 +1,17 @@
-export function add(a: number, b: number): number {
-  return a + b;
+import { Command } from "@cliffy/command";
+import { DESCRIPTION, NAME } from "@/util/constant.ts";
+
+export async function version() {
+  const { default: configs } = await import("./deno.json", {
+    with: {
+      type: "json",
+    },
+  });
+  console.log(`${NAME} v${configs.version}`);
 }
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+await new Command()
+  .name(NAME)
+  .description(DESCRIPTION)
+  .versionOption("-v, --version", "Print version info.", version)
+  .parse(Deno.args);

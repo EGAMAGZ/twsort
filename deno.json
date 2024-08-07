@@ -1,11 +1,11 @@
 {
   "name": "@twsort/cli",
   "version": "0.0.1",
-  "exports": {
-	  ".":"./main.ts"
-  },
+  "exports": "./main.ts",
   "imports": {
+    "@/": "./src/",
+    "@cross/test": "jsr:@cross/test@^0.0.9",
     "@std/assert": "jsr:@std/assert@1",
-    "@/": "./src/"
+    "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.5"
   }
 }
