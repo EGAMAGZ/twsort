@@ -17,7 +17,15 @@ const command = new Command()
   .name(NAME)
   .description(DESCRIPTION)
   .versionOption("-v, --version", "Print version info.", version)
-  .option("-e, --example", "Example")
+  .option("-t,--tailwind-config [path:string]", "Tailwind CSS config path.")
+  .option("-a,--attributes [attribute: string]", "Class attributes to sort.")
+  .option("-p,--preserve-duplicates", "Preserve duplicate classes.", {
+    default: false,
+  })
+  .option("-c,--check", "Check if the classes are sorted.", {
+    default: false,
+  })
+  .arguments("[files...:string]")
   .action((options, ...args) => {
     console.log(options, args);
   });
