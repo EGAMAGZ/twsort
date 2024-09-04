@@ -1,6 +1,7 @@
 import { Command } from "@cliffy/command";
 import { DESCRIPTION, NAME } from "@/util/constant.ts";
 import { colors } from "@cliffy/ansi/colors";
+import { getTwSortConfig } from "@/config.ts";
 
 export async function version() {
   const { default: configs } = await import("./deno.json", {
@@ -17,8 +18,9 @@ const command = new Command()
   .name(NAME)
   .description(DESCRIPTION)
   .versionOption("-v, --version", "Print version info.", version)
-  .option("-t,--tailwind-config [path:string]", "Tailwind CSS config path.")
-  .option("-a,--attributes [attribute: string]", "Class attributes to sort.")
+  .option("--config <path:string>", "TwSort config path.")
+  .option("--tailwind-config <path:string>", "Tailwind CSS config path.")
+  .option("-a,--attributes <attributes>", "Class attributes to sort.")
   .option("-p,--preserve-duplicates", "Preserve duplicate classes.", {
     default: false,
   })
@@ -27,6 +29,7 @@ const command = new Command()
   })
   .arguments("[files...:string]")
   .action((options, ...args) => {
+	  getTwSortConfig(options.config)
     console.log(options, args);
   });
 
